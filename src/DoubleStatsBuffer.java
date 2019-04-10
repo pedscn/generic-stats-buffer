@@ -2,20 +2,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 class DoubleStatsBuffer extends StatsBuffer<Double> {
-    double sum;
 
     DoubleStatsBuffer(ArrayList<Double> items, int n) {
         super(items, n);
-        double currentSum = 0;
-        for (Double item : currentBuffer) {
-            currentSum += item;
-        }
-        sum = currentSum;
     }
 
     @Override
     Double getMean() {
-        return (sum/currentBuffer.size());
+        return (getSum()/currentBuffer.size());
     }
 
     private boolean isOdd(int d) {
@@ -49,7 +43,11 @@ class DoubleStatsBuffer extends StatsBuffer<Double> {
 
     @Override
     Double getSum() {
-        return sum;
+        double currentSum = 0;
+        for (Double item : currentBuffer) {
+            currentSum += item;
+        }
+        return currentSum;
     }
 
     Double getMeanInRange(int a, int b) {
@@ -59,5 +57,4 @@ class DoubleStatsBuffer extends StatsBuffer<Double> {
         }
         return currentSum/(b-a);
     }
-
 }
